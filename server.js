@@ -1,21 +1,17 @@
-var express = require("express");
-var exphbs = require("express-handlebars");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-
-// Our scraping tools
-// Axios is a promised-based http library, similar to jQuery's Ajax method
-// It works on the client and on the server
-var axios = require("axios");
-var cheerio = require("cheerio");
+const express = require("express");
+const exphbs = require("express-handlebars");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 // Require all models
-var db = require("./models");
+const db = require("./models");
 
-var PORT = 3000;
+const PORT = 3000;
 
 // Initialize Express
-var app = express();
+const app = express();
 
 // Configure middleware
 
@@ -37,19 +33,19 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI);
 
 // Routes
 // Scrapes news website for articles.
-app.post("/scrape", function(req, res) {
-  axios.get("https://www.apnews.com/").then(function(response) {
-    var $ = cheerio.load(response.data);
+app.post("/scrape", (req, res) => {
+  axios.get("https://www.apnews.com/").then(response => {
+    const $ = cheerio.load(response.data);
 
     $("div.WireStory").each(function(i, element) {
       // Gets the article headline, summary, url, and image.
-      var article = {};
+      const article = {};
 
       article.headline = $(this)
         .find("h1")
@@ -73,21 +69,15 @@ app.post("/scrape", function(req, res) {
 
       // Checks if the article is already in the database.
       db.Article.find(article)
-      .then(function(dbArticle) {
+      .then(dbArticle => {
         if(dbArticle.length < 1) {
           // Insert the new article into the database.
           article.saved = false;
 
           db.Article.create(article)
-          .then(function(resArticle) {
-            console.log(resArticle);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+          .then(resArticle => console.log(resArticle))
+          .catch(error => console.log(error));
         }
-
-        console.log("Looking for another article");
       });
     });
 
@@ -97,20 +87,30 @@ app.post("/scrape", function(req, res) {
 });
 
 // Clears articles from the database.
-app.delete("/articles", function(req, res) {
+app.delete("/articles", (req, res) => {
   db.Article.deleteMany({})
-  .then(function(dbArticle) {
-    res.json(dbArticle);
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
+  .then(dbArticle => res.json(dbArticle))
+  .catch(error => console.log(error));
 });
 
+// Saves an article in the database.
+app.put("/articles/:id", (req, res) => {
+  db.Article.findOneAndUpdate({_id: req.params.id}, {saved: true})
+  .then(dbArticle => res.json(dbArticle))
+  .catch(error => console.log(error));
+});
+
+// Deletes an article from the database.
+app.delete("/articles/:id", (req, res) => {
+  db.Article.deleteOne({_id: req.params.id})
+  .then(dbArticle => res.json(dbArticle))
+  .catch(error => console.log(error));
+})
+
 // Shows all of the unsaved articles that have been scraped.
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
   db.Article.find({saved: false})
-  .then(function(dbArticle) {
+  .then(dbArticle => {
     res.render("index", {
       articles: dbArticle
     });
@@ -118,27 +118,23 @@ app.get("/", function(req, res) {
 });
 
 // Shows all of the saved articles.
-app.get("/saved", function(req, res) {
+app.get("/saved", (req, res) => {
   db.Article.find({saved: true})
-  .then(function(dbArticle) {
-    var hbsObject = {
+  .then(dbArticle => {
+    const hbsObject = {
       articles: dbArticle,
       title: "Saved Articles"
     }
 
     res.render("saved", hbsObject);
   })
-  .catch(function(err) {
-    res.json(err);
-  });
+  .catch(error => res.json(error));
 });
 
 // Renders the 404 page in case of an error.
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
   res.render("404");
 });
 
 // Start the server
-app.listen(PORT, function() {
-  console.log("App running on port " + PORT + "!");
-});
+app.listen(PORT, () => console.log("App running on port " + PORT + "!"));

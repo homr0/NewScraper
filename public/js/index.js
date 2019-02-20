@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
   // Initializes Materialize
   M.AutoInit();
 
@@ -9,10 +9,7 @@ $(document).ready(function() {
     $.ajax({
       method: "POST",
       url: "/scrape"
-    }).then(function(data) {
-      console.log("Scraped more articles.");
-      location.reload();
-    });
+    }).then(data => location.reload());
   });
 
   // Clears all articles from the database.
@@ -22,17 +19,14 @@ $(document).ready(function() {
     $.ajax({
       method: "DELETE",
       url: "/articles"
-    }).then(function(data) {
-      console.log("Cleared all articles from the database.");
-      location.reload();
-    })
+    }).then(data => location.reload())
   });
 
   // Saves the article in the database.
   $(".save").on("click", function(e) {
     e.preventDefault();
 
-    var articleId = $(this).data("id");
+    const articleId = $(this).data("id");
 
     $.ajax({
       method: "PUT",
@@ -40,10 +34,20 @@ $(document).ready(function() {
       data: {
         id: articleId
       }
-    }).then(function(data) {
-      console.log("Saved this article.");
+    }).then(data => $("#news" + articleId).remove());
+  });
 
-      $("[data-id='" + articleId + "']").remove();
-    });
+  $(".delete").on("click", function(e) {
+    e.preventDefault();
+
+    const articleId = $(this).data("id");
+
+    $.ajax({
+      method: "DELETE",
+      url: "/articles/" + articleId,
+      data: {
+        id: articleId
+      }
+    }).then(data => $("#news" + articleId).remove());
   })
 });
