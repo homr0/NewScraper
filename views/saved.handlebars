@@ -2,7 +2,7 @@
   <div class="col s12">
     {{#each articles}}
       {{#if saved}}
-      <article class="card horizontal">
+      <article class="card horizontal" id="news{{_id}}">
         <div class="card-image hide-on-med-and-down">
           <img src="{{image}}" alt="{{headline}}">
         </div>
@@ -16,8 +16,8 @@
 
             <p>{{summary}}</p>
 
-            <a class="btn-floating btn-large right waves-effect waves-light red" data-id="{{_id}}">
-              <i class="material-icons">save</i>
+            <a class="btn-floating btn-large right waves-effect waves-light red delete" data-id="{{_id}}">
+              <i class="material-icons">delete</i>
             </a>
           </div>
         </div>
