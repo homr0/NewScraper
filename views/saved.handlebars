@@ -2,7 +2,7 @@
   <div class="col s12">
     {{#each articles}}
       {{#if saved}}
-      <div class="card horizontal">
+      <article class="card horizontal">
         <div class="card-image hide-on-med-and-down">
           <img src="{{image}}" alt="{{headline}}">
         </div>
@@ -21,7 +21,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </article>
       {{/if}}
 
     {{else}}

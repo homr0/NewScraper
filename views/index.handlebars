@@ -1,8 +1,8 @@
 <section class="row">
-{{#each articles}}
-  {{#unless saved}}
   <div class="col s12">
-    <article class="card horizontal">
+  {{#each articles}}
+    {{#unless saved}}
+    <article class="card horizontal" id="news{{_id}}">
       <div class="card-image hide-on-med-and-down">
         <img src="{{image}}" alt="{{headline}}">
       </div>
@@ -22,11 +22,9 @@
         </div>
       </div>
     </article>
-  </div>
-  {{/unless}}
+    {{/unless}}
 
-{{else}}
-  <div class="col s12">
+  {{else}}
     <h3 class="center">No new articles!</h3>
 
     <div class="row center">
@@ -38,6 +36,6 @@
         <a class="waves-effect waves-light btn" href="/saved">Browse Saved Articles</a>
       </div>
     </div>
+  {{/each}}
   </div>
-{{/each}}
 </section>
