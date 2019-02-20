@@ -1,27 +1,32 @@
 <section class="row">
+{{#each articles}}
+  {{#unless saved}}
   <div class="col s12">
-    {{#each articles}}
-      {{#unless saved}}
-      <div class="card horizontal">
-        <div class="card-image">
+    <article class="card horizontal">
+      <div class="card-image hide-on-med-and-down">
+        <img src="{{image}}" alt="{{headline}}">
+      </div>
+
+      <div class="card-stacked">
+        <div class="card-image hide-on-med-and-up">
           <img src="{{image}}" alt="{{headline}}">
         </div>
+        <div class="card-content">
+          <h3><a href="{{url}}">{{headline}}</a></h3>
 
-        <div class="card-stacked">
-          <div class="card-content">
-            <h3><a href="{{url}}">{{headline}}</a></h3>
+          <p>{{summary}}</p>
 
-            <p>{{summary}}</p>
-
-            <a class="btn-floating btn-large right waves-effect waves-light red save" data-id="{{_id}}">
-              <i class="material-icons">save</i>
-            </a>
-          </div>
+          <a class="btn-floating btn-large right waves-effect waves-light red save" data-id="{{_id}}">
+            <i class="material-icons">save</i>
+          </a>
         </div>
       </div>
-      {{/unless}}
+    </article>
+  </div>
+  {{/unless}}
 
-    {{else}}
+{{else}}
+  <div class="col s12">
     <h3 class="center">No new articles!</h3>
 
     <div class="row center">
@@ -33,6 +38,6 @@
         <a class="waves-effect waves-light btn" href="/saved">Browse Saved Articles</a>
       </div>
     </div>
-    {{/each}}
   </div>
+{{/each}}
 </section>

@@ -3,11 +3,14 @@
     {{#each articles}}
       {{#if saved}}
       <div class="card horizontal">
-        <div class="card-image">
+        <div class="card-image hide-on-med-and-down">
           <img src="{{image}}" alt="{{headline}}">
         </div>
 
         <div class="card-stacked">
+          <div class="card-image hide-on-med-and-up	">
+            <img src="{{image}}" alt="{{headline}}">
+          </div>
           <div class="card-content">
             <h3><a href="{{url}}">{{headline}}</a></h3>
 

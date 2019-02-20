@@ -29,19 +29,19 @@ $(document).ready(function() {
   });
 
   // Saves the article in the database.
-  $(".delete").on("click", function(e) {
+  $(".save").on("click", function(e) {
     e.preventDefault();
 
     var articleId = $(this).data("id");
 
     $.ajax({
-      method: "DELETE",
+      method: "PUT",
       url: "/articles/" + articleId,
       data: {
         id: articleId
       }
     }).then(function(data) {
-      console.log("Deleted this article.");
+      console.log("Saved this article.");
 
       $("[data-id='" + articleId + "']").remove();
     });
