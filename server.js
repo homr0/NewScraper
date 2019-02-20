@@ -42,7 +42,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.connect(MONGODB_URI);
 
 // Routes
-// Scrapes news website for for information.
+// Scrapes news website for articles.
 app.post("/scrape", function(req, res) {
   axios.get("https://www.apnews.com/").then(function(response) {
     var $ = cheerio.load(response.data);
@@ -86,8 +86,24 @@ app.post("/scrape", function(req, res) {
             console.log(error);
           });
         }
+
+        console.log("Looking for another article");
       });
     });
+
+    // Redirects to where scraped articles are.
+    res.redirect("/");
+  });
+});
+
+// Clears articles from the database.
+app.delete("/articles", function(req, res) {
+  db.Article.deleteMany({})
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    console.log(err);
   });
 });
 
