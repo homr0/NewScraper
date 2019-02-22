@@ -43,19 +43,19 @@ app.post("/scrape", (req, res) => {
   axios.get("https://www.apnews.com/").then(response => {
     const $ = cheerio.load(response.data);
 
-    $("div.WireStory").each(function(i, element) {
+    $("div.WireStory").each((i, element) => {
       // Gets the article headline, summary, url, and image.
       const article = {};
 
-      article.headline = $(this)
+      article.headline = $(element)
         .find("h1")
         .text();
 
-      article.summary = $(this)
+      article.summary = $(element)
         .find(".content")
         .text();
 
-      article.url = "https://www.apnews.com" + $(this)
+      article.url = "https://www.apnews.com" + $(element)
         .find("a.headline")
         .attr("href");
 
@@ -72,17 +72,15 @@ app.post("/scrape", (req, res) => {
       .then(dbArticle => {
         if(dbArticle.length < 1) {
           // Insert the new article into the database.
-          article.saved = false;
-
           db.Article.create(article)
           .then(resArticle => console.log(resArticle))
           .catch(error => console.log(error));
         }
-      });
+      })
+      .catch(error => res.json(error));
     });
 
-    // Redirects to where scraped articles are.
-    res.redirect("/");
+    res.sendStatus(200);
   });
 });
 
@@ -90,22 +88,47 @@ app.post("/scrape", (req, res) => {
 app.delete("/articles", (req, res) => {
   db.Article.deleteMany({})
   .then(dbArticle => res.json(dbArticle))
-  .catch(error => console.log(error));
+  .catch(error => res.json(error));
 });
 
 // Saves an article in the database.
 app.put("/articles/:id", (req, res) => {
   db.Article.findOneAndUpdate({_id: req.params.id}, {saved: true})
   .then(dbArticle => res.json(dbArticle))
-  .catch(error => console.log(error));
+  .catch(error => res.json(error));
 });
 
 // Deletes an article from the database.
 app.delete("/articles/:id", (req, res) => {
   db.Article.deleteOne({_id: req.params.id})
   .then(dbArticle => res.json(dbArticle))
-  .catch(error => console.log(error));
-})
+  .catch(error => res.json(error));
+});
+
+// Populates the article with its note(s).
+app.get("/articles/:id", (req, res) => {
+  db.Article.findOne({_id: req.params.id})
+  .populate("note")
+  .then(dbArticle => res.json(dbArticle))
+  .catch(error => res.json(error));
+});
+
+// Creates a note for an article.
+app.post("/articles/:id", (req, res) => {
+  db.Note.create(req.body)
+  .then(dbNote => {
+    db.Article.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id})
+    .then(dbArticle => res.json(dbArticle))
+    .catch(error => res.json(error));
+  });
+});
+
+// Deletes a note for an article.
+app.delete("/articles/:id/:note", (req, res) => {
+  db.Note.removeOne({_id: req.params.note})
+  .then(dbNote => res.json(dbNote))
+  .catch(error => res.json(error));
+});
 
 // Shows all of the unsaved articles that have been scraped.
 app.get("/", (req, res) => {
@@ -114,7 +137,8 @@ app.get("/", (req, res) => {
     res.render("index", {
       articles: dbArticle
     });
-  });
+  })
+  .catch(error => res.json(error));
 });
 
 // Shows all of the saved articles.
