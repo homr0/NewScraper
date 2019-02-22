@@ -9,7 +9,10 @@ $(document).ready(() => {
     $.ajax({
       method: "POST",
       url: "/scrape"
-    }).then(data => location.reload());
+    }).then(data => {
+      console.log(data);
+      $("#scrape-complete").modal("open");
+    });
   });
 
   // Clears all articles from the database.
@@ -49,5 +52,21 @@ $(document).ready(() => {
         id: articleId
       }
     }).then(data => $("#news" + articleId).remove());
-  })
+  });
+
+  $(".note.create").on("click", function(e) {
+    e.preventDefault();
+
+    const articleId = $(this).data("id");
+
+    const newNote = {
+      title: $
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/articles/" + articleId,
+      data: newNote
+    }).then(data => location.reload());
+  });
 });
