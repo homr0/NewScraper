@@ -16,6 +16,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Noto Serif', Georgia, 'Times New Roman', Times, serif;
 }
 
+h3 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
 main {
   flex: 1 0 auto;
 }
@@ -49,7 +54,7 @@ article.card .btn-floating {
   margin: 0.25rem;
 }
 
-#article-notes {
+.modal, .modal-footer {
   background-image: url('../images/creampaper.png');
 }
 
@@ -68,6 +73,10 @@ article.card .btn-floating {
 
 #article-notes strong {
   font-weight: 700;
+}
+
+#article-notes blockquote {
+  border-left: 5px solid #d32f2f; 
 }
 
 @media only screen and (max-width: 600px) {
