@@ -108,8 +108,10 @@ app.delete("/articles/:id", (req, res) => {
 // Populates the article with its note(s).
 app.get("/articles/:id", (req, res) => {
   db.Article.findOne({_id: req.params.id})
-  .populate("note")
-  .then(dbArticle => res.json(dbArticle))
+  .populate("notes")
+  .then(dbArticle => {
+    res.send(dbArticle);
+  })
   .catch(error => res.json(error));
 });
 
@@ -117,15 +119,15 @@ app.get("/articles/:id", (req, res) => {
 app.post("/articles/:id", (req, res) => {
   db.Note.create(req.body)
   .then(dbNote => {
-    db.Article.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id})
-    .then(dbArticle => res.json(dbArticle))
+    db.Article.findOneAndUpdate({_id: req.params.id}, {$push: {notes: dbNote._id}}, {new: true})
+    .then(() => res.send(dbNote))
     .catch(error => res.json(error));
   });
 });
 
 // Deletes a note for an article.
 app.delete("/articles/:id/:note", (req, res) => {
-  db.Note.removeOne({_id: req.params.note})
+  db.Note.deleteOne({_id: req.params.note})
   .then(dbNote => res.json(dbNote))
   .catch(error => res.json(error));
 });

@@ -39,3 +39,29 @@
     {{/each}}
   </div>
 </section>
+
+{{!-- Modal for Notes --}}
+<div id="article-notes" class="modal">
+  <div class="modal-content">
+    <ul id="current-notes" class="collection with-header">
+      <li id="new-note" class="collection-header center">
+        <h4 class="center"><a href="#"></a></h4>
+
+        <div class="input-field col s12 m6">
+          <textarea id="note-body" class="materialize-textarea" required></textarea>
+          <label for="note-body">Note</label>
+        </div>
+
+        <div class="col s12 m6">
+          By: 
+          <div class="input-field inline">
+            <input id="note-author" type="text" class="validate" required>
+            <label for="note-author">Author</label>
+          </div>
+        </div>
+
+        <button id="note-create" class="btn btn-flat green" data-id="noteId">Submit Note</button>
+      </li>
+    </ul>
+  </div>
+</div>
