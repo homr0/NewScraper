@@ -15,13 +15,13 @@
 <body>
   <header class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper cyan darken-3">
             <a href="/" class="brand-logo">NewScraper</a>
 
             <ul id="news-nav" class="right hide-on-med-and-down">
                 <li><a href="/saved">Saved Articles</a></li>
-                <li><a class="scrape">Scrape New Articles</a></li>
-                <li><a class="clear">Clear Saved Articles</a></li>
+                <li><a class="scrape" href="#!">Scrape New Articles</a></li>
+                <li><a class="clear" href="#!">Clear Saved Articles</a></li>
             </ul>
 
             <a href="#" data-target="mobile-menu" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
@@ -31,12 +31,36 @@
 
   <main>
     <section class="row">
-      <div class="col s12 center">
-        <h1>Associated Press NewScraper</h1>
+      <div class="col s12 center" id="banner">
+        <div class="carousel carousel-slider center">
+          <div class="carousel-fixed-item center white-text">
+            <div id="banner-text">
+              <h1>NewScraper</h1>
 
-        {{#if title}}
-        <h2>{{title}}</h2>
-        {{/if}}
+              {{#if title}}
+              <h2>{{title}}</h2>
+              {{else}}
+              <h2>Associated Press Edition</h2>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="carousel-item" href="#one!">
+            <img src="/images/ap_news-politics.jpg" alt="AP News Politics">
+          </div>
+
+          <div class="carousel-item" href="#two!">
+            <img src="/images/ap_news-sports.jpg" alt="AP News Sports">
+          </div>
+
+          <div class="carousel-item" href="#three!">
+            <img src="/images/ap_news-business.jpg" alt="AP News Business">
+          </div>
+
+          <div class="carousel-item" href="#four!">
+            <img src="/images/ap_news-entertainment.jpg" alt="AP News Entertainment">
+          </div>
+        </div>
       </div>
 
       <div class="container">
@@ -45,7 +69,7 @@
     </section>
   </main>
 
-  <footer class="page-footer">
+  <footer class="page-footer cyan darken-3">
     <div class="container">
       <div class="row">
         <div class="col s12">
@@ -56,7 +80,11 @@
 
     <div class="footer-copyright">
       <div class="container">
-        <p>Associated Press NewScraper</p>
+        <p>
+          NewScraper<br>
+
+          Powered by <a href="https://www.apnews.com/" target="_blank" class="white-text">Associate Press News</a>.
+        </p>
       </div>
     </div>
   </footer>
@@ -64,8 +92,8 @@
   {{!-- Sidenavs --}}
   <ul class="sidenav" id="mobile-menu">
     <li><a href="/saved">Saved Articles</a></li>
-    <li><a class="scrape" href="/">Scrape New Articles</a></li>
-    <li><a class="clear">Clear Saved Articles</a></li>
+    <li><a class="scrape" href="#!">Scrape New Articles</a></li>
+    <li><a class="clear" href="#!">Clear Saved Articles</a></li>
   </ul>
 
   {{!-- Modals --}}

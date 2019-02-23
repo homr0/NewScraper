@@ -6,10 +6,10 @@ $(document).ready(() => {
   var writeNote = note => {
     var body = $("<blockquote>").text(note.body);
 
-    var author = $("<p>").html("<strong>&mdash; " + note.author + "</strong>");
+    var author = $("<p>").html("&mdash; <strong>" + note.author + "</strong>");
 
     var deleteBtn = $("<button>")
-    .addClass("btn-floating waves-effect waves-light right red note delete")
+    .addClass("btn-floating waves-effect waves-light right red darken-2 note delete")
     .attr("data-id", note._id)
     .html("<i class='material-icons'>close</i>");
 

@@ -1,18 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif');
+
 html {
   font-size: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Noto Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-image: url('../images/creampaper.png');
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Serif', Georgia, 'Times New Roman', Times, serif;
 }
 
 main {
   flex: 1 0 auto;
 }
 
+nav .brand-logo {
+  padding: 0 1rem;
+}
+
+#banner {
+  background-image: url('../images/newspaper.png');
+  min-height: 10rem;
+  margin-bottom: 1rem;
+}
+
+#banner-text {
+  background-color: rgba(0, 131, 143, 0.5);
+  margin: 1rem;
+  padding: 2rem;
+}
+
+article.card {
+  background-image: url('../images/paper_fibers.png');
+}
+
 article.card h3 {
   font-size: 2rem;
+  font-weight: 700;
+}
+
+article.card .btn-floating {
+  margin: 0.25rem;
+}
+
+#article-notes {
+  background-image: url('../images/creampaper.png');
+}
+
+#article-notes .collection-header {
+  background-image: url('../images/paper_fibers.png');
+}
+
+#article-notes .collection-item {
+  background-image: url('../images/seamless_paper_texture.png');
+}
+
+#article-notes h4 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+#article-notes strong {
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 600px) {
+  #banner-text {
+    padding: 0.5rem;
+  }
 }

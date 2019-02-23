@@ -2,22 +2,22 @@
   <div class="col s12">
   {{#each articles}}
     {{#unless saved}}
-    <article class="card horizontal" id="news{{_id}}">
-      <div class="card-image hide-on-med-and-down">
+    <article class="card horizontal cyan lighten-5" id="news{{_id}}">
+      {{!-- <div class="card-image hide-on-med-and-down">
         <img src="{{image}}" alt="{{headline}}">
-      </div>
+      </div> --}}
 
       <div class="card-stacked">
-        <div class="card-image hide-on-med-and-up">
+        {{!-- <div class="card-image hide-on-med-and-up">
           <img src="{{image}}" alt="{{headline}}">
-        </div>
+        </div> --}}
         <div class="card-content">
-          <h3><a href="{{url}}">{{headline}}</a></h3>
+          <h3><a href="{{url}}" target="_blank" class="light-blue-text text-darken-3">{{headline}}</a></h3>
 
           <p>{{summary}}</p>
 
-          <a class="btn-floating btn-large right waves-effect waves-light blue save" data-id="{{_id}}">
-            <i class="material-icons">save</i>
+          <a class="btn-floating btn-large right waves-effect waves-light blue darken-3 save" data-id="{{_id}}">
+            <i class="material-icons">bookmark_border</i>
           </a>
         </div>
       </div>
