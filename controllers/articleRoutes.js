@@ -6,8 +6,7 @@ module.exports = (app, db) => {
   app.post("/scrape", (req, res) => {
     axios.get("https://www.apnews.com/").then(response => {
       const $ = cheerio.load(response.data);
-      console.log(response.data);
-
+      
       $("div.FeedCard").each((i, element) => {
         // Gets the article headline, summary, url, and image.
         const article = {};

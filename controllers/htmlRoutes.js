@@ -4,7 +4,8 @@ module.exports = (app, db) => {
     db.Article.find({saved: false})
     .then(dbArticle => {
       res.render("index", {
-        articles: dbArticle
+        articles: dbArticle,
+        title: "Home"
       });
     })
     .catch(error => res.json(error));
