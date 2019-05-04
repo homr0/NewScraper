@@ -1,6 +1,6 @@
 # NewScraper
 
-[NewScraper](https://sleepy-caverns-55381.herokuapp.com/) is a web app for scraping news articles straight from the [Associated Press](https://www.apnews.com/).
+[NewScraper](https://newscraper-ap.herokuapp.com/) is a web app for scraping news articles straight from the [Associated Press](https://www.apnews.com/).
 
 ## Instructions
 
@@ -9,15 +9,15 @@
 ![Scraping new articles](./public/images/newscraper-scrape.PNG)
 
 1. To load some articles, click **Scrape New Articles**.
-2. Click on **Check out the new articles!** to go to the [Home](https://sleepy-caverns-55381.herokuapp.com/) to see the new articles from the Associated Press.
+2. Click on **Check out the new articles!** to go to the [Home](https://newscraper-ap.herokuapp.com/) to see the new articles from the Associated Press.
 3. Click on **Stay on this page** to stay on the current page.
 
 ### Saving Articles
 
 ![Saving a new article](./public/images/newscraper-save.PNG)
 
-1. To save an article from the [Home](https://sleepy-caverns-55381.herokuapp.com/) page, click on the blue *bookmark* icon.
-2. The newly saved article is removed from the main news feed and moved to the [Saved Articles](https://sleepy-caverns-55381.herokuapp.com/saved) page.
+1. To save an article from the [Home](https://newscraper-ap.herokuapp.com/) page, click on the blue *bookmark* icon.
+2. The newly saved article is removed from the main news feed and moved to the [Saved Articles](https://newscraper-ap.herokuapp.com/saved) page.
 
 ### Deleting Articles
 
